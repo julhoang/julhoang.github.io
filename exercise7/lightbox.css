@@ -1,0 +1,66 @@
+.hidden {
+	display: none;
+}
+
+.unhidden {
+	display: block;
+}
+
+body {
+	background-color: #3B945E;
+    font-family: "Georgia", sans-serif;
+    color: #182628;
+    margin-left: 20px;
+}
+
+
+#lightbox {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.7);
+}
+
+#positionBigImage {
+	position: absolute;
+	top: 20px;
+	left: 0px;
+	width: 100%;
+}
+
+#boundaryBigImage {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 517px;
+}
+
+#x {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+#main {
+	width: 870px;
+	height: 500px;
+	background-color: #3B945E;
+
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+
+	border: thick solid white;
+
+	padding: 20px;
+}
+
+.thumb {
+	height: 200px;
+	margin-top: 30px;
+	margin-left: 20px;
+	border: medium solid #182628;
+	border-radius: 15px;
+}
