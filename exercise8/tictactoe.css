@@ -1,0 +1,93 @@
+/* COLOR PALETTE
+#ffa41b		Mustard
+#000839 	Dark navy
+#005082		Blue
+#00a8cc		Sky blue
+
+https://colorhunt.co/palette/177867
+
+*/
+.hidden {
+	display: none;
+}
+
+.unhidden {
+	display: block;
+}
+
+#lightbox {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+}
+
+#x {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 30px;
+	height: 30px;
+	z-index: 2;
+}
+
+#positionMessage {
+	position: absolute;
+	top: 45px;
+	left: 0px;
+	width: 100%;
+}
+
+#boundaryMessage {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 600px;
+	height: 200px;
+	background-color: white;
+	color: black;
+	z-index: 1;
+	padding: 30px;
+	border: thick dashed black;
+}
+
+.titletext {
+	text-align: center;
+	color: black;
+	letter-spacing: 5px;
+	font-weight: lighter;
+}
+
+h1.titletext {font-size: 3em}
+p.titletext {font-size: 2em}
+
+#main {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	height: 585px; 
+	width: 595px;
+	background-color: #ffa41b;
+	border-radius: 5px;
+}
+
+body {
+	background-color: #342ead;
+	font-family: Impact, Verdana, sans-serif;
+}
+
+.box {
+	height: 175px;
+	width: 175px;
+	background-color: #faf2f2;
+	border-radius: 5px;
+	display: inline-block;
+	margin: 10px;
+	vertical-align: top;
+	text-align: center;
+	line-height: 175px;
+	font-size: 100px;
+	color: black;
+}
