@@ -31,7 +31,7 @@ function computerTakeTurn() {
 	let idTwo = ["one", "three", "five", "eight"];
 	let idThree = ["one", "two", "five", "six", "seven", "nine"];
 	let idFour = ["one", "five", "six", "seven"];
-	let idSix = ["tnree", "four", "five", "nine"];
+	let idSix = ["three", "four", "five", "nine"];
 	let idSeven = ["one", "three", "four", "five", "eight", "nine"];
 	let idEight = ["two", "five", "seven", "nine"];
 	let idNine = ["one", "three", "five", "six", "seven", "eight"];
