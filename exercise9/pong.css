@@ -5,7 +5,7 @@ body {
 #gameBoard {
 	width: 99.3%;
 	height: 90vh;
-	background-color: black;
+	background-color: #f0a500;
 	position: relative;
 	border: thick solid white;
 }
@@ -15,7 +15,8 @@ body {
 	height: 10vh;
 	background-color: white;
 	position: relative;
-	font: Arial;
+	font-family: "Arial";
+	border-bottom: thick solid black;
 }
 
 #header h2 {
@@ -39,7 +40,7 @@ body {
 .paddle {
 	width: 10px;
 	height: 150px;
-	background-color: white;
+	background-color: black;
 }
 
 #paddle1 {
@@ -56,12 +57,13 @@ body {
 
 #ball {
 	position: absolute;
-	left: 50vh;
-	top: 0px;
+	left: 50vw;
+	top: 50vh;
 	width: 25px;
 	height: 25px;
-	background-color: yellow;
+	background-color: #342ead;
 	border-radius: 50%;
+	border: thin solid black;
 }
 
 
