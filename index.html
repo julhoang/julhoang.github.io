@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel='icon' href='favicon(1).ico' type='image/x-icon'/>
+    <link href='https://fonts.googleapis.com/css?family=Press%20Start%202P' rel='stylesheet'>
+    <title>PONG</title>
+    
+    <!-- include an external style sheet -->
+    <link rel="stylesheet" href="pong.css">  
+    
+  </head>
+  
+  <body>
+    <div id="controlPanel">
+        <div onclick="startGame()" id="start" class="controls">Start</div>
+        <div onclick="stopGame()" id="stop" class="controls">Stop</div>
+        <div onclick="pauseGame()" id="pause" class="controls">Pause</div>
+        <div onclick="resumeGame()" id="resume" class="controls">Resume</div>
+    </div>
+
+    <div id="header">  
+      <h1 id="title">PONG GAME</h1>
+      <h2 id="left">Player A: <span id="score1">0</span></h2>
+      
+      <h2 id="right">Player B: <span id="score2">0</span></h2>
+    </div>
+
+    <div id="gameBoard"> 
+      <div id="paddle1" class="paddle">
+      </div>
+
+      <div id="ball">
+      </div>
+
+      <div id="paddle2" class="paddle">
+      </div>
+
+    </div>
+
+    <div id="lightbox" class="hidden"></div>
+
+    <div id="positionMessage">
+      <div id="boundaryMessage" class="hidden">
+        <img id="x" src="images/x.png" alt="close"
+        onclick="continueGame()">
+        <h1 class="titletext" id="message">&nbsp;</h1>
+        <p class="titletext" id="message2"></p>
+      </div>
+    </div>
+
+    <!-- include an external JavaScript file -->
+    <script src="pong.js"></script>
+  </body>
+  
+</html>
