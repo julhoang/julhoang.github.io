@@ -19,7 +19,7 @@ body {
 }
 
 #gameBoard div{
-	background-color: #5cdb95;	
+	background-color: #339900;	
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -147,7 +147,7 @@ body {
 }
 
 .bridge {
-	background-color: #800020 !important;
+	background-color: #663300 !important;
 }
 
 #positionMessage {

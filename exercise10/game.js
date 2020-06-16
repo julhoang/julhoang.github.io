@@ -3,27 +3,28 @@ const levels = [
 	["flag", "rock", "", "animate", "",
 	 "", "rock", "", "animate", "rider",
 	 "", "tree", "", "animate", "animate",
-	 "", "water", "", "", "",
+	 "bridge", "water", "bridge", "water", "water",
 	 "", "fence", "", "horseup", ""],
 
 	 // level 1
+	 ["tree", "", "", "tree", "flag",
+	 "animate", "animate", "animate", "animate", "animate",
+	 "water", "bridge", "water", "water", "water",
+	 "", "", "", "rock", "",
+	 "rider", "rock", "", "", "horseup"],
+
+	 // level 2
+	 
 	 ["flag", "water", "", "", "",
 	 "fenceside", "water", "tree", "tree", "rider",
 	 "animate", "bridge animate", "animate", "animate", "animate",
 	 "", "water", "rock", "", "rock",
 	 "", "water", "horseup", "", ""],
 
-	 // level 2
-	 ["tree", "", "", "tree", "flag",
-	 "animate", "animate", "animate", "animate", "animate",
-	 "water", "bridge", "water", "water", "water",
-	 "", "", "", "fence", "",
-	 "rider", "rock", "", "", "horseup"],
-
 	 // level 3
 	 ["", "water", "water", "animate", "flag",
 	 "", "water", "water", "animate", "animate",
-	 "", "water", "fenceside", "fenceside", "fenceside",
+	 "", "water", "water", "fenceside", "fenceside",
 	 "horseup", "bridge", "", "", "",
 	 "", "water", "tree", "tree", "rider"],
 
@@ -50,11 +51,14 @@ var widthOfBoard = 5;
 
 var locationOfEnemy = 0;
 var animateBoxes = document.querySelectorAll(".animate");
+var currentDirection;
+
 
 var stepCount = 0;
 var result = false; // has the player won? - currently: no
+var allowResume = true;
 
-// used to control game start/stop
+// used to control game start/stop AND animation
 var gameOn;
 
 
@@ -69,6 +73,7 @@ function startGame() {
 	document.getElementById("score").innerHTML = "Step Count: " + stepCount;
 	currentLevel = 0;
 	riderOn = false;
+	result = false;
 	currentLocationOfHorse = 0;
 	loadLevel();
 	changeVisibility("lightbox");
@@ -82,18 +87,19 @@ function startGame() {
 function stopGame(reason) {
 	clearTimeout(currentAnimation);
 	gameOn = false;
+	allowResume = false;
 
-	if (result == true) {
+	if (result = true && currentLevel >= levels.length) {
 		reason = "win";
 	}
 	
 	if (reason == "hitEnemy") {
-		message = "Oh no, the Enemy found you";
+		message = "Oh no, the Alien caught you.";
 		message2 = "You are at level " + (currentLevel + 1) + ". Wanna try again?";
 
 	} else if (reason == "win") {
 		message = "Yayy!   Albert and Simon are freed now.";
-		message2 = "Albert only used " + stepCount + " steps! Try again for fewer steps!";
+		message2 = "Albert only used " + (stepCount + 1) + " steps! Try again for fewer steps!";
 
 	} else if (reason == "overStep") {
 		message = "Albert ran out of energy!";
@@ -102,6 +108,7 @@ function stopGame(reason) {
 	} else if (reason == "stop") {
 		message = "Why did you give up?";
 		message2 = "You are at level " + (currentLevel + 1) + ". Wanna restart?";
+
 	}
 	
 	document.getElementById("x").className = "unhidden";
@@ -112,8 +119,12 @@ function stopGame(reason) {
 
 // move horse
 document.addEventListener("keydown", function (e) {
-	
-	if (gameOn == true && onFence == false) {
+	if (stepCount >= 70) {
+			stopGame("overStep");
+			return;
+		}
+
+	if (gameOn == true && onFence == false && stepCount < 70 && result == false) {
 		switch (e.keyCode) {
 			case 37: 	// left arrow
 				if (currentLocationOfHorse % widthOfBoard !== 0) {
@@ -151,10 +162,9 @@ document.addEventListener("keydown", function (e) {
 				break;
 		} // switch 
 
-		if (stepCount > 70) {
-			stopGame("overStep");
-			return;
-		}
+		// console.log("step: " + stepCount);
+		
+		
 
 	} // if gameOn
 }); // key event listener
@@ -263,14 +273,12 @@ function tryToMove (direction) {
 						onFence = false;
 
 					}, 350); //350
-
 					
 					return; 
 
 				} // if rider on
 
 			} // if class has fence
-
 
 
 		// if there's a rider, add rider
@@ -318,18 +326,18 @@ function levelUp (nextClass) {
 		// level up until max level, then stop game
 		if (currentLevel < (levels.length - 1)) {
 				message = "Level " + (currentLevel + 1) + "/5.";
-				message2 = "Albert has " + (70 - stepCount) + " steps left to spend";
+				message2 = "Albert has used " + stepCount + "/70 steps.";
 				document.getElementById("clickStart").className = "hidden";
 				document.getElementById("x").className = "hidden";
 
 				showLightBox(message,message2);
 
-		} else if (currentLevel >= (levels.length - 1)) {
+		} else if (currentLevel >= (levels.length - 1) && stepCount <= 70) {
 			stopGame("win");
 			console.log("win");
 			result = true;
 			return;
-		} // if
+		} 
 			
 			
 		clearTimeout(currentAnimation);
@@ -372,7 +380,12 @@ function loadLevel() {
 
 	animateBoxes = document.querySelectorAll(".animate");
 
-	animateEnemy(animateBoxes, 0, "right");
+	if (currentLevel == 0 || currentLevel == 3) {
+		animateEnemy(animateBoxes, 0, "down");
+	} else {
+		animateEnemy(animateBoxes, 0, "right");
+	}
+	
 
 } // loadLevel
 
@@ -381,7 +394,7 @@ function loadLevel() {
 // index - current location of animation
 // direction - current direction of animation
 function animateEnemy(boxes, index, direction) {
-	// console.log("box length: " + boxes.length);
+	 //console.log("box length: " + boxes.length);
 	//console.log("index: " + index);
 	// exit function if no animation
 	if (boxes.length <= 0 ) { return; }
@@ -391,13 +404,18 @@ function animateEnemy(boxes, index, direction) {
 		boxes[index].classList.add("enemyright");
 	} else if (direction == "left") {
 		boxes[index].classList.add("enemyleft");
-	
-	} else if (direction == "down") {
-		boxes[index].classList.add("enemydown");
-		console.log("should be down");
+	}
+
+
+	if (direction == "down") {
+		if (index == boxes.length - 1) {
+			boxes[index].classList.add("enemyright");
+		} else {
+			boxes[index].classList.add("enemydown");
+		}
+		
 	} else {
 		boxes[index].classList.add("enemyup");
-		console.log("should be up");
 	} // if
 
 
@@ -412,7 +430,6 @@ function animateEnemy(boxes, index, direction) {
 	} // for
 
 	if (boxes[index].className.includes("horse")) {
-		console.log("found horse");
 		stopGame("hitEnemy");
 		return;
 	}
@@ -437,7 +454,7 @@ function animateEnemy(boxes, index, direction) {
 			index--;
 		} // if
 
-	// moving up
+	// moving down
 	} else if (direction == "down") {
 		// turn around if hit top side
 		if (index == boxes.length - 1) {
@@ -445,9 +462,9 @@ function animateEnemy(boxes, index, direction) {
 			direction = "up";
 		} else {
 			index++;
-		} // else
+		}// else
 	
-	// moving down
+	// moving up
 	} else if (direction == "up") {
 		// turn around if hit bottom side
 		if (index == 0) {
@@ -459,6 +476,8 @@ function animateEnemy(boxes, index, direction) {
 	}
 
 	locationOfEnemy = index;
+	currentDirection = direction;
+
 	currentAnimation = setTimeout (function() {
 		animateEnemy(boxes, index, direction);
 	}, 750);
@@ -466,12 +485,12 @@ function animateEnemy(boxes, index, direction) {
 
 function guide() {
 	message = "Albert and Simon's Adventure Game";
-	message2 = "Albert the Horse and Simon the Master are both trapped in a maze "
+	message2 = "Albert the Unicorn \n and Simon the Master \n are both trapped in a maze "
 	+ "guarded by aliens. First, Albert needs to seek Simon, then collects all flags at different levels "
-	+ "to win their way out. \n"
-	+ " However! Albert only have enough energy for 70 steps. "
-	+ "Watch the Step Count parameter and don't waste the energy on non-passable "
-	+ "obstacles like rock, water, tree. Use arrow keys to move around. ";
+	+ "to win their way out. "
+	+ " However! Albert only have enough energy for 70 steps so watch the Step Count parameter. "
+	+ "Use arrow keys to move around and don't waste the energy on non-passable "
+	+ "obstacles like rock, water, tree. ";
 
 	showLightBox(message, message2);
 } // start
@@ -517,10 +536,12 @@ function closeX() {
 
 // resume game play
 function resumeGame() {
-	if (!gameOn) {
-		console.log("resume game");
+	if (!gameOn && result == false && allowResume == true) {
+		// console.log("resume game");
 		gameOn = true;
-		animateEnemy(animateBoxes,locationOfEnemy,"right");
+		
+		animateEnemy(animateBoxes,locationOfEnemy,currentDirection);
+
 	} // if
 
 
@@ -528,9 +549,10 @@ function resumeGame() {
 
 // pause game play
 function pauseGame() {
+	allowResume == true;
 	
 	if (gameOn) {
-		console.log("from pauseGame");
+		// console.log("from pauseGame");
 		clearTimeout(currentAnimation);
 		gameOn = false;
 	}
