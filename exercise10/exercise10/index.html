@@ -5,11 +5,24 @@
     <title>Albert and Simon's Adventure</title>
     
     <!-- include an external style sheet -->
-    <link rel="stylesheet" href="style.css">  
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Almendra%20SC' rel='stylesheet'>  
  
   </head>
   
   <body>
+    <div id="header">
+      <h1 id="title">Albert and Simon's Adventure</h1>
+      <h2 id="name">Written by Julia</h2>
+    </div>
+
+    <div id="controlPanel">
+        <div id="score" class="controls">Step Count: </div>
+        <div onclick="pauseGame()" id="pause" class="controls">Pause</div>
+        <div onclick="resumeGame()" id="resume" class="controls">Resume</div>
+        <div onclick="stopGame('stop')" id="stop" class="controls">Stop</div>
+    </div>
+
     <div id="gameBoard">
       <div></div>
       <div></div>
@@ -42,12 +55,25 @@
       <div></div>
     </div>
 
-<div id="positionMessage">
-    <div class="message" id="lose">You Lose</div>
-    <div class="message" id="levelup">Next level...</div>
-    <div class="message" id="win">You Won The Game</div>
-</div>
+<div id="lightbox" class="hidden"></div>
 
+    <div id="positionMessage">
+      <div id="boundaryMessage" class="hidden">
+        <img id="x" src="images/x.png" alt="close"
+        onclick="closeX()" class="hidden">
+        <h1 class="titletext" id="message">&nbsp;</h1>
+        <p class="titletext" id="message2"></p>
+        <h4 id="clickStart" onclick="startGame()" class="unhidden">Start Now!</h4>
+      </div>
+    </div>
+
+<div id="credit">Artwork Attribution:
+  <div>Horse and Character-on-Horse Design: "[LPC] Horses" Artist: bluecarrot16 License: CC-BY 3.0 / GPL 3.0 / GPL 2.0 / OGA-BY 3.0. Link: http://opengameart.org/content/lpc-horses. Reworked by Jordan Irwin (AntumDeluge) and bigbeargames.</div>
+  <div>Main Character Design: Link: https://opengameart.org/content/lpc-short-sword. Credit to William.Thompsonj and wulax.</div>
+  <div>Water: http://pixelartmaker.com/art/9fd0e66733bfa61.png (unknown author)</div>
+  <div>Tree Design: https://opengameart.org/content/tiny-tree (unknown author)</div>
+  <div>Other graphics are designed by Julia.</div>
+</div>
     <script src="game.js"></script>
 
   </body>
