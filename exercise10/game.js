@@ -326,7 +326,12 @@ function levelUp (nextClass) {
 		// level up until max level, then stop game
 		if (currentLevel < (levels.length - 1)) {
 				message = "Level " + (currentLevel + 1) + "/5.";
-				message2 = "Albert has used " + stepCount + "/70 steps.";
+				message2 = "Good job!";
+				
+				if (currentLevel == levels.length - 2) {
+					message2 = "Hey! Albert has " + (69 - stepCount) + " steps left.";
+				}
+				
 				document.getElementById("clickStart").className = "hidden";
 				document.getElementById("x").className = "hidden";
 
@@ -334,7 +339,6 @@ function levelUp (nextClass) {
 
 		} else if (currentLevel >= (levels.length - 1) && stepCount <= 70) {
 			stopGame("win");
-			console.log("win");
 			result = true;
 			return;
 		} 
