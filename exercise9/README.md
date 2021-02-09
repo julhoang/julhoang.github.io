@@ -9,3 +9,5 @@ Some game features:
 --> I did this to make the game more challenge and also to encourage players to finish the game as soon as possible.
 
   - Max point to win is 3.
+
+The game also has sound effects and an ICO for the website.
